@@ -5,11 +5,13 @@ const bodyParser = require('body-parser'); /*body-parser es una libreria q va a 
 // const path = require('pat');
 // const favicon = require('serve-favicon');
 // const logger = require('morgan');
+
+//models
 const dbconfig = require('./config/database.config');
 dbconfig.connect();
 
-//routes
-
+// routes
+const placesRouter = require('./routes/places.route');
 
 
 /*Configuracion de los middlewares*/
@@ -18,6 +20,8 @@ dbconfig.connect();
 app.use(bodyParser.json({}));//esta nos permitira leer las q vienen en formato raw
 app.use(bodyParser.urlencoded({extend: false}));//esta nos permitira leer las peticiones q vienen en formato x-www-form-urlencoded
 // app.use(express.static(path.json(__dirname, 'public')));
+
+app.use('/places', placesRouter);
 
 app.listen(3000, () => {
     console.log('server running on port 3000');
