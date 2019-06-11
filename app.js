@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser'); /*body-parser es una libreria q va a ser lectura del cuerpo de la peticion */
-// const path = require('pat');
+// const path = require('path');
 // const favicon = require('serve-favicon');
 // const logger = require('morgan');
 
@@ -12,7 +12,7 @@ dbconfig.connect();
 
 // routes
 const placesRouter = require('./routes/places.route');
-
+const usersRouter = require('./routes/user.route');
 
 /*Configuracion de los middlewares*/
 // app.use(logger('dev'));
@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({extend: false}));//esta nos permitira leer las pe
 // app.use(express.static(path.json(__dirname, 'public')));
 
 app.use('/places', placesRouter);
+app.use('/users', usersRouter);
 
 app.listen(3000, () => {
     console.log('server running on port 3000');

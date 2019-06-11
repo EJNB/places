@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "04532701-cca6-48cd-bc0d-2da3e38542eb",
+		"name": "PlacesCodigoFacilito",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PLACES",
+			"item": [
+				{
+					"name": "CREATE PLACES",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Oficina codigo facilito\",\r\n    \"description\": \"Lorem ipsum\",\r\n    \"acceptsCreditCard\" : true,\r\n    \"coverImage\": \"Lorem ipsum\",\r\n    \"avatarImage\": \"test url\",\r\n    \"openHour\": 0,\r\n    \"closeHour\": 24\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/places",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/places",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PLACE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/places/5cfb313a4ef23316d02ff2fd",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"places",
+								"5cfb313a4ef23316d02ff2fd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PLACE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Updated ipsum updated\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/places/5cfb313a4ef23316d02ff2fd",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"places",
+								"5cfb313a4ef23316d02ff2fd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/places/5cfb33be0818e61ab43a20a4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"places",
+								"5cfb33be0818e61ab43a20a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE  x-form",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Centro de Negocios",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Un buen zoologico",
+									"type": "text"
+								},
+								{
+									"key": "openHour",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "closeHour",
+									"value": "16",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "address",
+									"value": "Central park",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/places",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"places"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"example1@gmail.com\",\n\t\"name\": \"TEst\",\n\t\"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b8c72ee9-5f6d-4e4d-b53c-0551ccf55063",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2159543d-c680-4e29-85c4-8466d31de834",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

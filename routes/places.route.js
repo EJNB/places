@@ -6,8 +6,8 @@ router.route('/')
     .get(placeController.index)
     .post(
         placeController.multerMiddleware(),//1ro se van a leer los archivos de la peticion y luego se crean
-        placeController.create//,
-        //placeController.saveImage
+        placeController.create,
+        placeController.saveImage
     );
 
 router.route('/:id')
