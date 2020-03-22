@@ -33,7 +33,7 @@ userSchema.virtual('favorites').get(function () {
         .then(favorites=> {
             let placeIds = favorites.map(fav=> fav._place);
             return Place.find({ '_id': {$in : placeIds }});
-        })
+        });
 });
 
 userSchema.plugin(mongooseBycryt);

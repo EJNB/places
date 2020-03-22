@@ -20,14 +20,10 @@ function create(req, res, next) {
 
 function myPlaces(req, res) {
     /* Buscamos el user primero, esto nos retornara una promesa y luego hacemos el user.places <- attr virtual*/
-    User.findOne({ '_id': req.user.id })
-        .then(user=> {
-            console.log(user.places);
-            user.places.then(places=> { // user.places <- devuelve una promesa por lo q podemos hacer then(places=> {...})
-                res.json(places);
-            })
-        })
-        .catch(err => res.json(err))
+    User.findOne({'_id': req.user.id}).then(user => {
+        // user.places <- devuelve una promesa por lo q podemos hacer then(places=> {...})
+        user.places.then(places => res.json(places))
+    }).catch(err => res.json(err))
 }
 
 module.exports = {create, myPlaces};
