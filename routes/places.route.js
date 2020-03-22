@@ -15,8 +15,8 @@ router.route('/:id')
     .get(placeController.find, placeController.show)
     .put(
         placeController.find,
-        authenticateOwner,
-        placeController.update
+        authenticateOwner, // Despues de encontrar el lugar con find, ejecutaremos este middleware
+        placeController.update // Luego de verificar el propietario entonces comete la accion.
     )
     .delete(
         /* Primero se busca el place mediante el middleware find, el cual pondra en el obj
