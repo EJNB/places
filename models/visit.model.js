@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
+const REACTIONS = ['like', 'love', 'disappointment', 'yummy', 'anger', 'disgust'];
 
 let visitSchema = new mongoose.Schema({
     _user: {
@@ -12,10 +13,11 @@ let visitSchema = new mongoose.Schema({
         ref: 'Place',
         required: true
     },
+    reaction: {type: String, enum: REACTIONS}, // Valores para el enum q son validos para este campo reaccion.
     observation: String
 });
 
-visitModel = mongoose.Model('Visit', visitSchema);
+visitModel = mongoose.model('Visit', visitSchema);
 
 visitSchema.plugin(mongoosePaginate);
 
