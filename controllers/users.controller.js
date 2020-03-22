@@ -13,9 +13,19 @@ function create(req, res, next) {
         .catch(err => {
             console.log(err);
             res.status(422).json({
-               err
+                err
             })
         });
 }
 
-module.exports = { create };
+function myPlaces() {
+    User.findOne({ '_id': req.user.id })
+        .then(user=> {
+            console.log(user.places);
+            user.places.then(places=> {
+                res.json(places);
+            })
+        }).catch(err => res.json(err))
+}
+
+module.exports = {create, myPlaces};

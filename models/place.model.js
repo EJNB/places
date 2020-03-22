@@ -17,15 +17,20 @@ const placeSchema = mongoose.Schema({
     coverImage: String,
     avatarImage: String,
     openHour: Number,
-    closeHour: Number
+    closeHour: Number,
+    _user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 });
 
 placeSchema.methods.updateImage = function (path, imageType) {
-    //Primero es subir la img
+    // Primero es subir la img
+    // Guardar el lugar
     return uploader(path)
         .then(secure_url => this.saveImageUrl(secure_url, imageType))
     // .then()
-    //guardar el lugar
 };
 
 placeSchema.methods.saveImageUrl = function (secureUrl, imageType) {
@@ -39,7 +44,8 @@ placeSchema.methods.saveImageUrl = function (secureUrl, imageType) {
 * o despues de q se actualice, hasta q no se ejecuta la fnc next no seguira la ejecucion */
 //este hook se ejecutara antes de guardar
 placeSchema.pre('save', function (next) {
-    if(this.slug) next();
+    // if(this.slug) return next();
+    if(this._id) return next();
     generateSlugAndContinue.call(this, 0, next);
 });
 

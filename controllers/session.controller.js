@@ -3,24 +3,26 @@ const secret = require('../config/secret');
 const User = require('../models/user.model');
 
 function authenticate(req, res, next) {
-    User.findOne({ email: req.body.email })
+    //1ro. Validamos q el usuario exista(correo electronico y contraseña validos)
+    //2do. Luego de eso vamos a generar el token y luego enviarlo.
+    User.findOne({ email: req.body.email })//obtenemos el usuario con dicho correo electronico
         .then(user=> {
-            user.verifyPassword(req.body.password)
+            user.verifyPassword(req.body.password)//esta funcion retorna una promesa al igual q el findOne
                 .then(valid => {
                     if(valid){
                         req.user = user;
                         next();
                     }else {
-
+                        next(new Error('Invalid Credentials'));
                     }
                 });
-        });
-    // if()
+        })
+        .catch(err => next(err));
 }
 
 function generateToken(req, res, next) {
     if(!req.user) return next();
-    //sign({la informacion q almacenara el token}, secreto)
+    //sign({la informacion q almacenará el token}, secreto)
     req.token = jwt.sign({ id: req.user._id }, secret.jwtSecret);
     next();
 }
@@ -40,5 +42,6 @@ function sendToken(req, res) {
 
 module.exports = {
     generateToken,
-    sendToken
+    sendToken,
+    authenticate
 };

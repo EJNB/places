@@ -9,6 +9,7 @@ function find(req, res, next) {
     /*en este caso guardaremos una prop en el objeto req, para usarlo en los siguientes middlewares*/
         .then(place => {
             req.place = place;
+            req.mainObject = place;
             next()
         })
         .catch(err => next(err))/*cuando enviamos algun argumento a next se asume q es un error q sucedio*/
@@ -24,6 +25,8 @@ function index(req, res) {
 function create(req, res, next) {
 
     const params = helpers.paramsBuilder(validParams, req.body);
+    console.log(req.user.id);
+    params['_user'] = req.user.id;
     /*{
         title: req.body.title,
             description: req.body.description,
@@ -37,8 +40,8 @@ function create(req, res, next) {
     Place.create(params)
         .then(doc => {
             req.place = doc;
-            // next();
-            res.json(doc);
+            next();
+            // res.json(doc);
         })
         .catch(err => {
             console.log(err);
@@ -47,21 +50,6 @@ function create(req, res, next) {
 }
 
 function update(req, res) {
-    //validar los attr
-
-    let placeParams = {};
-    // attrs.forEach(attr => {
-    //     if (Object.prototype.hasOwnProperty.call(req.body, attr)) ;
-    //     placeParams[attr] = req.body[attr];
-    // });
-
-    // Place.update({'_id': req.params.id}, placeParams, {new: true})
-    //     .then(place => res.json(place))
-    //     .catch(err => console.log(err));
-
-    // console.log(req.body);
-    // console.log(req.place);
-    // res.json('hola mundo');
     const params = helpers.paramsBuilder(validParams, req.body);
     req.place = Object.assign(req.place, params);
     req.place.save()
@@ -70,7 +58,8 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-    // Place.findByIdAndRemove(req.params.id)
+    /* Gracias al middleware find, ya tenemos en la clave place del obj req el lugar q buscamos
+    mediante la url http://localhost:3000/places/:id*/
     req.place.remove()
         .then(doc => res.json(doc))
         .catch(err => console.log(err))
@@ -85,6 +74,7 @@ function show(req, res) {
     // .catch(err => console.log(err));
 }
 
+// Este middleware leera los archivos de la peticion.
 function multerMiddleware() {
     return upload.fields([
         {name: 'avatar', maxCount: 1},
@@ -93,6 +83,7 @@ function multerMiddleware() {
 }
 
 function saveImage(req, res) {
+    /* Si el middleware create tuvo exito => tendremos en el obj req una prop llamada place. */
     if (req.place) {
         const files = ['avatar', 'cover'];
         const promises = [];

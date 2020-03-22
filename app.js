@@ -1,4 +1,4 @@
-//libraries
+// Libraries.
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser'); /*body-parser es una libreria q va a ser lectura del cuerpo de la peticion */
@@ -6,13 +6,14 @@ const bodyParser = require('body-parser'); /*body-parser es una libreria q va a 
 // const favicon = require('serve-favicon');
 // const logger = require('morgan');
 
-//models
+// Models.
 const dbconfig = require('./config/database.config');
 dbconfig.connect();
 
-// routes
+// Routes.
 const placesRouter = require('./routes/places.route');
 const usersRouter = require('./routes/user.route');
+const sessionsRouter = require('./routes/session.route');
 
 /*Configuracion de los middlewares*/
 // app.use(logger('dev'));
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({extend: false}));//esta nos permitira leer las pe
 
 app.use('/places', placesRouter);
 app.use('/users', usersRouter);
+app.use('/sessions', sessionsRouter);
 
 app.listen(3000, () => {
     console.log('server running on port 3000');
