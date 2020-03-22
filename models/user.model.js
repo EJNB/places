@@ -21,9 +21,11 @@ userSchema.post('save', function (user, next) {
 });
 
 /*los virtuals son attrs virtuales de un documento,
-los virtuales son para obtener datos y para enviarlos*/
+los virtuales son para obtener datos y para enviarlos
+* @return promise
+*/
 userSchema.virtual('places').get(function () {
-    return Place.find({ '_user': this._id }) //la variable this hace referencia al user actual ej: user.places <===> this= places
+    return Place.find({ '_user': this._id }); // La variable this hace referencia al user actual ej: user.places <===> this= places
 });
 
 userSchema.virtual('favorites').get(function () {
