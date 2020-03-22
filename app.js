@@ -18,6 +18,7 @@ dbconfig.connect();
 const placesRouter = require('./routes/places.route');
 const usersRouter = require('./routes/user.route');
 const sessionsRouter = require('./routes/session.route');
+const favoritesRouter = require('./routes/favorite.route');
 
 /*Configuracion de los middlewares*/
 // app.use(logger('dev'));
@@ -33,6 +34,7 @@ app.use(
 app.use('/places', placesRouter);
 app.use('/users', usersRouter);
 app.use('/sessions', sessionsRouter);
+app.use('/favorites', favoritesRouter);
 
 app.listen(3000, () => {
     console.log('server running on port 3000');

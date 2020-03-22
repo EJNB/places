@@ -44,8 +44,8 @@ placeSchema.methods.saveImageUrl = function (secureUrl, imageType) {
 * o despues de q se actualice, hasta q no se ejecuta la fnc next no seguira la ejecucion */
 //este hook se ejecutara antes de guardar
 placeSchema.pre('save', function (next) {
-    // if(this.slug) return next();
-    if(this._id) return next();
+    if(this.slug) return next();
+    // if(this._id) return next();
     generateSlugAndContinue.call(this, 0, next);
 });
 
