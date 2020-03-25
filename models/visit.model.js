@@ -17,8 +17,12 @@ let visitSchema = new mongoose.Schema({
     observation: String
 });
 
-visitModel = mongoose.model('Visit', visitSchema);
+visitSchema.statics.forUser = function(userId, page) {
+    return Visit.paginate({'_user': userId}, {page: page, limit: 5, sort: {'_id': -1 }});
+};
 
 visitSchema.plugin(mongoosePaginate);
 
-module.exports = visitModel;
+Visit = mongoose.model('Visit', visitSchema);
+
+module.exports = Visit;

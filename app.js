@@ -20,6 +20,7 @@ const usersRouter = require('./routes/user.route');
 const sessionsRouter = require('./routes/session.route');
 const favoritesRouter = require('./routes/favorite.route');
 const visitRouter = require('./routes/visit.route');
+const visitPlaces = require('./routes/visitPlaces.route');
 
 /*Configuracion de los middlewares*/
 // app.use(logger('dev'));
@@ -33,6 +34,7 @@ app.use(
 // app.use(express.static(path.json(__dirname, 'public')));
 
 app.use('/places', placesRouter);
+app.use('/places', visitPlaces);
 app.use('/users', usersRouter);
 app.use('/sessions', sessionsRouter);
 app.use('/favorites', favoritesRouter);

@@ -36,13 +36,21 @@ function create(req, res) {
 }
 
 function index(req, res) {
-    /* Aqui ya tengo el req.user por q previamente se ejecuto el jwtMiddleware
-    * 1ro: Encontrar el usuario.
-    * 2do: Get los favoritos de este user.
-    * */
-    User.findOne({'_id': req.user.id}).then(user => {
-        user.favorites.then(places=> res.json(places))
-    }).catch(err=> res.json(err));
+    let promise = null;
+
+    if(req.place) {
+        promise = req.place.visits;
+    } else if (req.user) {
+        // El metodo estatico forUser nos devolvera las visitas de un user
+        promise = Visit.forUser(req.user.id, req.query.page || 1);
+    }
+
+    if (promise) {
+        promise.then(visits=> res.json(visits))
+            .catch(err=> res.status(500).json(err));
+    } else {
+        res.status(404).json({});
+    }
 }
 
 module.exports = { create, destroy, find, index };
